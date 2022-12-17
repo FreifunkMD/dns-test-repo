@@ -1,5 +1,7 @@
 # Playground Bind9 Image
 
+**Please note:** This is a playground repo for testing things out. Please don't attach your heart to anything that cannot be moved anywhere else via a PR. When we are done with testing this repository will be deleted.
+
 > Bind9 container playground
 
 ## Releases
