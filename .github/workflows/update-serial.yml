@@ -5,7 +5,7 @@ on:
     branches:
       - "main"
     paths:
-      - '${ZONE_FILE}'
+      - 'db.*'
 env:
   ZONE_FILE: "db.playground"
 jobs:
