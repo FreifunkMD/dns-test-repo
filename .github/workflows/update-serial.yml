@@ -7,7 +7,7 @@ on:
     paths:
       - 'db.*'
 env:
-  ZONE_FILE: "db.playground"
+  ZONE_FILE: "db.*"
 jobs:
   build:
     name: "Update and Tag DNS Zone Serial"
