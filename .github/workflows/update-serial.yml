@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - "main"
+    paths:
+      - '${ZONE_FILE}'
 env:
   ZONE_FILE: "db.playground"
 jobs:
