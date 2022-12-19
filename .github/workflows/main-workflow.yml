@@ -1,0 +1,26 @@
+name: Main Workflow
+
+on:
+  push:
+    branches:
+      - 'main'
+
+
+jobs:
+  verify-strucure:
+    name: "Verify repository structure"
+    runs-on: ubuntu-latest
+    concurrency: verify
+
+  verify-zone:
+    name: "Verify zone syntax"
+    runs-on: ubuntu-latest
+    concurrency: verify
+
+  update-serial:
+    name: "Update serial number"
+    runs-on: ubuntu-latest
+
+  build-image:
+    name: "Build Docker image"
+    runs-on: ubuntu-latest
