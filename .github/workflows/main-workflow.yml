@@ -7,17 +7,14 @@ on:
 
 
 jobs:
-  verify-structure:
-    name: "Verify repository structure"
-    concurrency: verify
-    runs-on: ubuntu-latest
-    steps:
-    - name: Print Hello World
-      run: echo "Hello world."
+  validate-structure:
+    name: "Validate repository structure"
+    concurrency: validate
+    uses: ./.github/workflows/validate-structure.yml
 
-  verify-zone:
-    name: "Verify zone syntax"
-    concurrency: verify
+  validate-zone:
+    name: "Validate zone syntax"
+    concurrency: validate
     runs-on: ubuntu-latest
     steps:
     - name: Print Hello World
@@ -26,8 +23,8 @@ jobs:
   update-serial:
     name: "Update serial number"
     needs:
-    - verify-structure
-    - verify-zone
+    - validate-structure
+    - validate-zone
     runs-on: ubuntu-latest
     steps:
     - name: Print Hello World

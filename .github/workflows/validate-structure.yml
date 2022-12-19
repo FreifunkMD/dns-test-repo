@@ -1,0 +1,20 @@
+name: Validate repository structure
+
+on:
+  workflow_call:
+
+jobs:
+  validate-zone:
+    name: "Validate that there is only one zone file"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Check-out"
+        uses: actions/checkout@v3
+      - name: "Pre-Check"
+        run: |
+          num_zonefiles="$(ls  ${{ env.ZONE_FILE }} | wc -l)"
+          if [ "$num_zonefiles" != 1 ];
+          then
+            echo "Incorrect number of Zone files. Expected 1, got $num_zonefiles"
+            exit 1
+          fi
