@@ -22,11 +22,6 @@ jobs:
     - validate-zone
     uses: ./.github/workflows/update-serial.yml
 
-  debug:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "::notice::${{ secrets.DOCKERHUB_USERNAME == 'mrtux' }}"
-
   build-image:
     name: "Build Docker image"
     needs:
