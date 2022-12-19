@@ -7,17 +7,24 @@ env:
   ZONE_FILE: "db.*"
 
 jobs:
-  build:
-    name: "Update and Tag DNS Zone Serial"
+  checkout:
     runs-on: ubuntu-latest
     steps:
       - name: "Check-out"
         uses: actions/checkout@v3
         with:
             fetch-depth: 2
+
+  generate-serial:
+    name: "Generate DNS Zone Serial"
+    needs:
+    - checkout
+    runs-on: ubuntu-latest
+    steps:
       - name: "Check if zone file has been changed"
         id: check-for-change
         run: |
+          git diff --name-only HEAD^1 HEAD
           git diff --name-only HEAD^1 HEAD | grep "${{ env.ZONE_FILE }}"
           if [$? -eq 0]
           then
@@ -26,6 +33,7 @@ jobs:
           else
             echo "::notice::Found change in zone file"
           fi
+          echo "::notice::Test"
       - name: "Update DNS Zone Serial"
         id: generate-serial
         run: |
