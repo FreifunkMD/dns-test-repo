@@ -15,10 +15,7 @@ jobs:
   validate-zone:
     name: "Validate zone syntax"
     concurrency: validate
-    runs-on: ubuntu-latest
-    steps:
-    - name: Print Hello World
-      run: echo "Hello world."
+    uses: ./.github/workflows/validate-zone.yml
 
   update-serial:
     name: "Update serial number"
