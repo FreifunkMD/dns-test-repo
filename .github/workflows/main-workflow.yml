@@ -19,9 +19,9 @@ jobs:
 
   update-serial:
     name: "Update serial number"
-    needs:
-    - validate-structure
-    - validate-zone
+#    needs:
+#    - validate-structure
+#    - validate-zone
     uses: ./.github/workflows/update-serial.yml
 
   build-image:
