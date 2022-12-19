@@ -33,3 +33,13 @@ jobs:
       SERIAL: ${{ needs.update-serial.outputs.serial }}
       PUSH: true
     secrets: inherit
+
+  build-image:
+    name: "Build Docker image"
+    needs:
+    - update-serial
+    - build-image
+    if: needs.update-serial.outputs.serial
+    uses: ./.github/workflows/create-github-release.yml
+    with:
+      SERIAL: ${{ needs.update-serial.outputs.serial }}
