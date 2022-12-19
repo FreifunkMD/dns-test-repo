@@ -30,6 +30,6 @@ jobs:
     - update-serial
     if: needs.update-serial.outputs.serial
     uses: ./.github/workflows/update-serial.yml
-      with:
-        IMAGE: ffmd/bind9-playground
-        SERIAL: ${{ needs.update-serial.outputs.serial }}
+    with:
+      IMAGE: ffmd/bind9-playground
+      SERIAL: ${{ needs.update-serial.outputs.serial }}
