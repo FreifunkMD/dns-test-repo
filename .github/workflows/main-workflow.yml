@@ -33,3 +33,4 @@ jobs:
     with:
       IMAGE: ffmd/bind9-playground
       SERIAL: ${{ needs.update-serial.outputs.serial }}
+      PUSH: true
