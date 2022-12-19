@@ -34,8 +34,8 @@ jobs:
       PUSH: true
     secrets: inherit
 
-  build-image:
-    name: "Build Docker image"
+  release:
+    name: "Create release"
     needs:
     - update-serial
     - build-image
