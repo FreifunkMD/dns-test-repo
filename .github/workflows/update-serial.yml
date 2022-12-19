@@ -1,13 +1,11 @@
 name: Update and Tag DNS Zone Serial
 
 on:
-  push:
-    branches:
-      - "main"
-    paths:
-      - 'db.*'
+  workflow_call:
+
 env:
   ZONE_FILE: "db.*"
+
 jobs:
   build:
     name: "Update and Tag DNS Zone Serial"
@@ -15,13 +13,16 @@ jobs:
     steps:
       - name: "Check-out"
         uses: actions/checkout@v3
-      - name: "Pre-Check"
+      - name: "Check if zone file has been changed"
+        id: check-for-change
         run: |
-          num_zonefiles="$(ls  ${{ env.ZONE_FILE }} | wc -l)"
-          if [ "$num_zonefiles" != 1 ];
+          git diff --name-only HEAD~1 HEAD | grep "${{ env.ZONE_FILE }}"
+          if [$? -eq 0]
           then
-            echo "Incorrect number of Zone files. Expected 1, got $num_zonefiles"
-            exit 1
+            echo "::notice::Zone file has not been changed, halting."
+            echo "conclusion=skipped" >> $GITHUB_OUTPUT
+          else
+            echo "::notice::Found change in zone file"
           fi
       - name: "Update DNS Zone Serial"
         id: generate-serial
