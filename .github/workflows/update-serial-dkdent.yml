@@ -1,0 +1,55 @@
+name: Update and Tag DNS Zone Serial
+
+on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - 'db.*'
+env:
+  ZONE_FILE: "db.*"
+jobs:
+  build:
+    name: "Update and Tag DNS Zone Serial"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Check-out"
+        uses: actions/checkout@v3
+      - name: "Pre-Check"
+        run: |
+          num_zonefiles="$(ls  ${{ env.ZONE_FILE }} | wc -l)"
+          if [ "$num_zonefiles" != 1 ];
+          then
+            echo "Incorrect number of Zone files. Expected 1, got $num_zonefiles"
+            exit 1
+          fi
+      - name: "Update DNS Zone Serial"
+        id: generate-serial
+        run: |
+          current_serial="$(grep -o -P '[0-9]{10}(?= ; serial)' ${{ env.ZONE_FILE }})"
+          serial_linenumber="$(grep -n -P '[0-9]{10}(?= ; serial)' ${{ env.ZONE_FILE }} | cut -d : -f 1)"
+          current_date="${current_serial:0:8}"
+          current_sequence="${current_serial:8:2}"
+          new_date="$(date +%Y%m%d)"
+          if [ "$current_date" = "$new_date" ]; 
+          then
+          # we use bc and substringing because current serial has leading zeros 
+              new_sequence="$(printf "%02.0f\n" "$( echo ${current_sequence}+1 | bc)")"
+          else
+              new_sequence="01"
+          fi
+          new_serial="$(echo $new_date${new_sequence: -2})"
+          echo "SERIAL=$new_serial" >> $GITHUB_OUTPUT
+          sed -i "${serial_linenumber}s/$current_serial/$new_serial/" ${{ env.ZONE_FILE }}
+      - name: "Add and Commit"
+        uses: EndBug/add-and-commit@v9
+        with:
+          # The arguments for the `git add` command (see the paragraph below for more info)
+          # Default: '.'
+          add: "${{ env.ZONE_FILE }}"
+          # The message for the commit.
+          # Default: 'Commit from GitHub Actions (name of the workflow)'
+          message: 'Update Zone Serial number'
+          # Arguments for the git tag command (the tag name always needs to be the first word not preceded by an hyphen)
+          # Default: ''
+          tag: "v${{ steps.generate-serial.outputs.SERIAL }}"
