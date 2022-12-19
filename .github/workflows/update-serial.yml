@@ -22,7 +22,7 @@ jobs:
           if [ "$zones_changed" = 0 ]
           then
             echo "::notice::Zone file has not been changed, halting."
-            # echo "conclusion=skipped" >> $GITHUB_OUTPUT
+            echo "conclusion=skipped" >> $GITHUB_OUTPUT
           else
             echo "::notice::Found change in zone file"
           fi
