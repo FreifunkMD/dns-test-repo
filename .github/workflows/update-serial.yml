@@ -19,7 +19,7 @@ jobs:
         id: check-for-change
         run: |
           zones_changed=$(git diff --name-only HEAD^1 HEAD | grep "${{ env.ZONE_FILE }}" | wc -l)
-          if [ "$zones_changed" = 0]
+          if [ "$zones_changed" = 0 ]
           then
             echo "::notice::Zone file has not been changed, halting."
             # echo "conclusion=skipped" >> $GITHUB_OUTPUT
