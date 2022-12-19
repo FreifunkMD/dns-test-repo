@@ -9,35 +9,35 @@ on:
 jobs:
   verify-structure:
     name: "Verify repository structure"
-    runs-on: ubuntu-latest
     concurrency: verify
+    runs-on: ubuntu-latest
     steps:
     - name: Print Hello World
       run: echo "Hello world."
 
   verify-zone:
     name: "Verify zone syntax"
-    runs-on: ubuntu-latest
     concurrency: verify
+    runs-on: ubuntu-latest
     steps:
     - name: Print Hello World
       run: echo "Hello world."
 
   update-serial:
     name: "Update serial number"
-    runs-on: ubuntu-latest
     needs:
     - verify-structure
-    - verify-latest
+    - verify-zone
+    runs-on: ubuntu-latest
     steps:
     - name: Print Hello World
       run: echo "Hello world."
 
   build-image:
     name: "Build Docker image"
-    runs-on: ubuntu-latest
     needs:
     - update-serial
+    runs-on: ubuntu-latest
     steps:
     - name: Print Hello World
       run: echo "Hello world."
