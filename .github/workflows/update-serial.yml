@@ -16,7 +16,7 @@ jobs:
       - name: "Check if zone file has been changed"
         id: check-for-change
         run: |
-          git diff --name-only HEAD~1 HEAD | grep "${{ env.ZONE_FILE }}"
+          git diff --name-only HEAD^1 HEAD | grep "${{ env.ZONE_FILE }}"
           if [$? -eq 0]
           then
             echo "::notice::Zone file has not been changed, halting."
