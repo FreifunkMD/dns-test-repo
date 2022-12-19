@@ -28,7 +28,7 @@ jobs:
           echo "zones_changed=$zones_changed" >> $GITHUB_OUTPUT
       - name: "Update DNS Zone Serial"
         id: generate-serial
-        if: steps.check-for-change.zones_changed
+        if: steps.check-for-change.outputs.zones_changed
         run: |
           current_serial="$(grep -o -P '[0-9]{10}(?= ; serial)' ${{ env.ZONE_FILE }})"
           serial_linenumber="$(grep -n -P '[0-9]{10}(?= ; serial)' ${{ env.ZONE_FILE }} | cut -d : -f 1)"
