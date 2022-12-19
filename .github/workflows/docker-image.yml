@@ -10,7 +10,7 @@ on:
       SERIAL:
         description: "Zone serial number"
         type: string
-        required: false
+        required: true
       PUSH:
         description: "Actually push the image"
         type: boolean
@@ -24,7 +24,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          ref: "v${{ default(inputs.SERIAL, github.event.repository.default_branch) }}"
+          ref: "v${{ inputs.SERIAL }}"
 
       - name: Docker meta
         id: meta
@@ -35,7 +35,7 @@ jobs:
             # from input SERIAL
             type=raw,value=v${{ inputs.SERIAL }},enable=${{ inputs.SERIAL }}
             # generate latest
-            type=raw,value=latest
+            # type=raw,value=latest
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
