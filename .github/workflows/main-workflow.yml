@@ -7,7 +7,7 @@ on:
 
 
 jobs:
-  verify-strucure:
+  verify-structure:
     name: "Verify repository structure"
     runs-on: ubuntu-latest
     concurrency: verify
