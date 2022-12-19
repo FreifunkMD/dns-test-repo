@@ -30,7 +30,7 @@ jobs:
           zones_changed=$(git diff --name-only HEAD^1 HEAD | grep "${{ inputs.ZONE_FILE }}" | wc -l)
           if [ "$zones_changed" = 0 ]
           then
-            echo "::notice::Zone file has not been changed, no further action taken."
+            echo "::notice::Zone file has not been changed."
           fi
           echo "zones_changed=$zones_changed" >> $GITHUB_OUTPUT
       - name: "Update DNS Zone Serial"
