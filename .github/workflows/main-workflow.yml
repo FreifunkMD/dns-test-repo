@@ -22,10 +22,7 @@ jobs:
     needs:
     - validate-structure
     - validate-zone
-    runs-on: ubuntu-latest
-    steps:
-    - name: Print Impl Warning
-      run: echo "::warning::Not implemented."
+    uses: ./.github/workflows/update-serial.yml
 
   build-image:
     name: "Build Docker image"

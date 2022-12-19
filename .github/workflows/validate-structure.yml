@@ -18,6 +18,5 @@ jobs:
           num_zonefiles="$(ls  ${{ env.ZONE_FILE }} | wc -l)"
           if [ "$num_zonefiles" != 1 ];
           then
-            echo "::error::Incorrect number of Zone files. Expected 1, got $num_zonefiles"
-            exit 1
+            echo "::setFailed::Incorrect number of Zone files. Expected 1, got $num_zonefiles"
           fi
