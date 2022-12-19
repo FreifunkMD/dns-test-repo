@@ -9,8 +9,6 @@ env:
 jobs:
   generate-serial:
     name: "Generate DNS Zone Serial"
-    needs:
-    - checkout
     runs-on: ubuntu-latest
     steps:
       - name: "Check-out"
