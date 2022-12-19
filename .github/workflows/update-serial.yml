@@ -7,20 +7,16 @@ env:
   ZONE_FILE: "db.*"
 
 jobs:
-  checkout:
-    runs-on: ubuntu-latest
-    steps:
-      - name: "Check-out"
-        uses: actions/checkout@v3
-        with:
-            fetch-depth: 2
-
   generate-serial:
     name: "Generate DNS Zone Serial"
     needs:
     - checkout
     runs-on: ubuntu-latest
     steps:
+      - name: "Check-out"
+        uses: actions/checkout@v3
+        with:
+            fetch-depth: 2
       - name: "Check if zone file has been changed"
         id: check-for-change
         run: |
