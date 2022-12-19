@@ -28,7 +28,7 @@ jobs:
     name: "Build Docker image"
     needs:
     - update-serial
-    if: jobs.update-serial.outputs.serial
+    if: needs.update-serial.outputs.serial
     runs-on: ubuntu-latest
     steps:
     - name: Print Impl Warning
