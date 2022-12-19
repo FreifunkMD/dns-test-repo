@@ -47,7 +47,7 @@ jobs:
           sed -i "${serial_linenumber}s/$current_serial/$new_serial/" ${{ env.ZONE_FILE }}
       - name: "Add and Commit"
         uses: EndBug/add-and-commit@v9
-        if: false
+        if: steps.generate-serial.outputs.serial
         with:
           # The arguments for the `git add` command (see the paragraph below for more info)
           # Default: '.'
