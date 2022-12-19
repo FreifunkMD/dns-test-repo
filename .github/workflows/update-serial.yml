@@ -22,12 +22,13 @@ jobs:
           if [ "$zones_changed" = 0 ]
           then
             echo "::notice::Zone file has not been changed, halting."
-            echo "conclusion=skipped" >> $GITHUB_OUTPUT
           else
             echo "::notice::Found change in zone file"
           fi
+          echo "zones_changed=$zones_changed" >> $GITHUB_OUTPUT
       - name: "Update DNS Zone Serial"
         id: generate-serial
+        if: steps.check-for-change.zones_changed > 0
         run: |
           current_serial="$(grep -o -P '[0-9]{10}(?= ; serial)' ${{ env.ZONE_FILE }})"
           serial_linenumber="$(grep -n -P '[0-9]{10}(?= ; serial)' ${{ env.ZONE_FILE }} | cut -d : -f 1)"
@@ -42,7 +43,7 @@ jobs:
               new_sequence="01"
           fi
           new_serial="$(echo $new_date${new_sequence: -2})"
-          echo "SERIAL=$new_serial" >> $GITHUB_OUTPUT
+          echo "serial=$new_serial" >> $GITHUB_OUTPUT
           sed -i "${serial_linenumber}s/$current_serial/$new_serial/" ${{ env.ZONE_FILE }}
       - name: "Add and Commit"
         uses: EndBug/add-and-commit@v9
@@ -56,4 +57,4 @@ jobs:
           message: 'Update Zone Serial number'
           # Arguments for the git tag command (the tag name always needs to be the first word not preceded by an hyphen)
           # Default: ''
-          tag: "v${{ steps.generate-serial.outputs.SERIAL }}"
+          tag: "v${{ steps.generate-serial.outputs.serial }}"
