@@ -27,7 +27,7 @@ jobs:
           else
             echo "::notice::Found change in zone file"
           fi
-          echo "::notice::Test"
+          exit 0
       - name: "Update DNS Zone Serial"
         id: generate-serial
         run: |
