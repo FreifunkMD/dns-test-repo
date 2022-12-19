@@ -1,11 +1,12 @@
 name: Update and Tag DNS Zone Serial
 
-on:
-  push:
-    branches:
-      - "main"
-    paths:
-      - 'db.*'
+#on:
+#  push:
+#    branches:
+#      - "main"
+#    paths:
+# - 'db.*'
+
 env:
   ZONE_FILE: "db.*"
 jobs:
