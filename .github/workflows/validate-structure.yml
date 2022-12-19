@@ -19,5 +19,5 @@ jobs:
           if [ "$num_zonefiles" != 1 ];
           then
             echo "::error::Incorrect number of Zone files. Expected 1, got $num_zonefiles"
-            # exit 1
+            exit 1
           fi
