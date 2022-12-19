@@ -1,23 +1,23 @@
 name: Create Release
 
 on:
-  push:
-    tags:
-      - "v*"
-  workflow_run:
-    workflows: ["Update and Tag DNS Zone Serial"]
-    types:
-      - completed
+  workflow_call:
+    inputs:
+      SERIAL:
+        description: "Zone serial number"
+        type: string
+        required: true
 
 jobs:
-  build:
-    name: "Release"
+  release:
+    name: "Create release"
     runs-on: ubuntu-22.04
     steps:
       - name: "Check-out"
         uses: actions/checkout@v3
         with:
-            fetch-depth: 0
+          fetch-depth: 0
+          ref: "v${{ inputs.SERIAL }}"
       - name: "Generate release changelog"
         id: generate-release-changelog
         uses: heinrichreimer/github-changelog-generator-action@v2.3
@@ -26,14 +26,11 @@ jobs:
           onlyLastTag: "true" # set to false if no tags exist (buggy with only one tag)
           stripHeaders: "true"
           stripGeneratorNotice: "true"
-      - name: Extract the VERSION name
-        id: get-version
-        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
       - name: "Create GitHub release"
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ github.ref }}
-          name: "${{ steps.get-version.outputs.VERSION }}"
+          name: "Serial ${{ inputs.SERIAL }}"
           body: "${{ steps.generate-release-changelog.outputs.changelog }}"
           token: ${{ secrets.GITHUB_TOKEN }}
-          draft: True
+          draft: False
