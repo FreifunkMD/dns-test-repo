@@ -2,8 +2,6 @@ name: Validate repository structure
 
 on:
   pull_request:
-    branches:
-      - ${{ github.event.repository.default_branch }}
   workflow_call:
 
 env:
