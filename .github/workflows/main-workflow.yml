@@ -9,12 +9,10 @@ on:
 jobs:
   validate-structure:
     name: "Validate repository structure"
-    concurrency: validate
     uses: ./.github/workflows/validate-structure.yml
 
   validate-zone:
     name: "Validate zone syntax"
-    concurrency: validate
     uses: ./.github/workflows/validate-zone.yml
 
   update-serial:

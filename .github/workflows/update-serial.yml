@@ -13,6 +13,9 @@ on:
         description: "Created zone serial number, if any."
         value: ${{ jobs.generate-serial.outputs.serial }}
 
+# Make sure only one job at a time is generating a serial number
+concurrency: generate-serial
+
 jobs:
   generate-serial:
     name: "Generate DNS Zone Serial"
