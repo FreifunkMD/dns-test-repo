@@ -1,6 +1,9 @@
 name: Validate repository structure
 
 on:
+  pull_request:
+    branches:
+      - 'master'
   workflow_call:
 
 env:

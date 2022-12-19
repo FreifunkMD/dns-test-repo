@@ -1,6 +1,9 @@
 name: Validate zone syntax
 
 on:
+  pull_request:
+    branches:
+      - 'master'
   workflow_call:
 
 jobs:
