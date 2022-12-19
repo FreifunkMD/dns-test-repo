@@ -8,24 +8,24 @@ on:
 
 jobs:
   validate-structure:
-#    name: "Validate repository structure"
+    name: "Validate repository structure"
     concurrency: validate
     uses: ./.github/workflows/validate-structure.yml
 
   validate-zone:
-#    name: "Validate zone syntax"
+    name: "Validate zone syntax"
     concurrency: validate
     uses: ./.github/workflows/validate-zone.yml
 
   update-serial:
-#    name: "Update serial number"
+    name: "Update serial number"
     needs:
     - validate-structure
     - validate-zone
     uses: ./.github/workflows/update-serial.yml
 
   build-image:
-#    name: "Build Docker image"
+    name: "Build Docker image"
     needs:
     - update-serial
     if: needs.update-serial.outputs.serial

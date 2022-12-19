@@ -33,7 +33,7 @@ jobs:
           images: ${{ inputs.IMAGE }}
           tags: |
             # from input SERIAL
-            type=raw,value=v${{ inputs.SERIAL }},enable=${{ inputs.SERIAL }}
+            type=raw,value=v${{ inputs.SERIAL }},enable=${{ !empty(inputs.SERIAL) }}
             # generate latest
             # type=raw,value=latest
 
