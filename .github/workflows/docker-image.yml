@@ -43,7 +43,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
-      - run: echo "::notice::${{ secrets.DOCKERHUB_USERNAME == 'netz39' }}"
+      - run: echo "::notice::${{ secrets.DOCKERHUB_USERNAME == 'mrtux' }}"
 
       - name: Login to DockerHub
         if: inputs.PUSH
