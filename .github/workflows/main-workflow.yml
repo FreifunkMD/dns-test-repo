@@ -24,8 +24,8 @@ jobs:
     - validate-zone
     runs-on: ubuntu-latest
     steps:
-    - name: Print Hello World
-      run: echo "Hello world."
+    - name: Print Impl Warning
+      run: echo "::warning::Not implemented."
 
   build-image:
     name: "Build Docker image"
@@ -33,5 +33,5 @@ jobs:
     - update-serial
     runs-on: ubuntu-latest
     steps:
-    - name: Print Hello World
-      run: echo "Hello world."
+    - name: Print Impl Warning
+      run: echo "::warning::Not implemented."
