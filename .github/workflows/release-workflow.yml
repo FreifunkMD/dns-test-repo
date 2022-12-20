@@ -5,7 +5,6 @@ on:
     branches:
       - 'main'
 
-if: github.repository_owner == 'FreifunkMD'
 
 jobs:
   validate-structure:
@@ -18,6 +17,7 @@ jobs:
 
   update-serial:
     name: "Update serial number"
+    if: github.repository_owner == 'FreifunkMD'
     needs:
     - validate-structure
     - validate-zone
