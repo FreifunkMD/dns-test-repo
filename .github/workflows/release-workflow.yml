@@ -5,6 +5,7 @@ on:
     branches:
       - 'main'
 
+if: github.repository_owner == 'FreifunkMD'
 
 jobs:
   validate-structure:
