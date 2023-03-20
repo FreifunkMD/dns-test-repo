@@ -69,3 +69,5 @@ jobs:
           # Arguments for the git tag command (the tag name always needs to be the first word not preceded by an hyphen)
           # Default: ''
           tag: "v${{ steps.generate-serial.outputs.serial }}"
+          # Determines the way the action fills missing author name and email.
+          default_author: github_actions
